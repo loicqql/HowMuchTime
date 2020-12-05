@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HowMuchTime</title>
+    <link rel="stylesheet" href="./src/css/style.css">
+</head>
+<body class="stats">
+    <header>
+        <button id="import">Import data</button>
+        <button id="export">Export data</button>
+
+        <input type="file" id="file" name="file" accept="application/JSON">
+    </header>
+    <main>
+
+
+
+        <style>
+            .vignette {
+                border: 2px solid red;
+            }
+
+            #model {
+                display: none;
+            }
+        </style>
+
+    </main>
+
+    <div id="model">
+        <p class="nameWebsite"></p>
+        <p class="visits"></p>
+        <p class="time"></p>
+        <p class="average"></p>
+    </div>
+    
+    <script src="./src/js/const.js"></script>
+    <script src="./src/js/functions.js"></script>
+    <script src="./src/js/stats.js"></script>
+</body>
+</html>
+
+
+
+<!-- 
+General
+-
+Temps total
+Nb de sites
+
+Import / export avec des (?)
+
+
+Website
+-
+Le nom du site
+nb de visites
+Temps passé
+Temps moyen
+-->
