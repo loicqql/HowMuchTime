@@ -5,26 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HowMuchTime</title>
-    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/styleFront.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> 
 </head>
 
-<body>
+<body class="noData">
 
-    <!-- img de l'icone du site -->
-    <p id="currentDomain">N/A</p>
-
-    <p id="visits">N/A</p>
-
-    <div class="session">
-        <p id="sessionTime">N/A</p>
-        <p id="averageTimeSession">N/A</p>
-    </div>
-
-    <hr>
-    <p id="total">N/A</p>
-    <p id="websites">N/A</p>
-
-    <a id="stats" target="_blank">More stats !</a>
+    <main>
+        <section class="website">
+            <h2>No data available</h2>
+            <h1 id="currentDomain">N/A</h1>
+            <div>
+                <span id="sessionTime">N/A</span>
+                <p>Session time</p>
+            </div>
+            <div class="row">
+                <div>
+                    <span id="averageTimeSession">N/A</span>
+                    <p>Average time</p>
+                </div>
+                <div>
+                    <span id="visits">N/A</span>
+                    <p>Number of visits</p>
+                </div>
+            </div>
+        </section>
+        <section class="globals">
+            <h2>On globals</h2>
+            <div class="row">
+                <div>
+                    <span id="total">N/A</span>
+                    <p>Total time</p>
+                </div>
+                <div>
+                    <span id="websites">N/A</span>
+                    <p>Websites visited</p>
+                </div>
+            </div>
+        
+            <a id="stats" target="_blank">More stats !</a>
+        </section>
+    </main>
 
     <script src="./src/js/const.js"></script>
     <script src="./src/js/functions.js"></script>

@@ -1,7 +1,7 @@
 
 displayData();
 document.getElementById("export").addEventListener("click", exportData);
-document.getElementById("import").addEventListener("click", importData);
+document.getElementById("importInput").addEventListener("change", importData);
 
 function displayData() {
     getAllData((data) => {
@@ -76,6 +76,32 @@ function exportData() {
     });
 }
 
-function importData() {
+function importData(e) {
+    console.log(e.files);
+    let fileJson = document.getElementById("importInput").files[0];
 
+    const fr = new FileReader();
+
+    fr.addEventListener("load", e => {
+        //Try catch
+        console.log(checkJsonData(JSON.parse(fr.result)));
+    });
+
+    fr.readAsText(fileJson);
+}
+
+function checkJsonData(json) {
+
+    if(!json.hasOwnProperty(KEY)) {
+        return false
+    }
+
+    data = json[KEY];
+
+    data.forEach(el => {
+        let key = Object.keys(el);
+
+
+        //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/RegExp/test
+    });
 }

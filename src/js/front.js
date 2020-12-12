@@ -1,6 +1,12 @@
 let data;
 
+document.getElementById("stats").setAttribute('href', browser.runtime.getURL("./stats.html"));
+
 let currentDomain = null;
+
+getWebsites((result) => {
+    document.getElementById("websites").textContent = result;
+});
 
 getActiveTab();
 
@@ -34,9 +40,9 @@ function front() {
 
 function showStatsWebsite() {
 
-    document.getElementById("stats").setAttribute('href', browser.runtime.getURL("./stats.html"));
+    document.querySelector('body').classList.remove('noData');
 
-    document.getElementById("currentDomain").textContent = "On " + currentDomain;
+    document.getElementById("currentDomain").textContent = currentDomain;
     document.getElementById("visits").textContent = data.length;
 
     document.getElementById("sessionTime").textContent = getSessionTime(data[data.length-1]);
@@ -46,10 +52,6 @@ function showStatsWebsite() {
 
     getTotalTime((result) => {
         document.getElementById("total").textContent = result;
-    });
-
-    getWebsites((result) => {
-        document.getElementById("websites").textContent = result;
     });
 
     setInterval(() => {
@@ -121,4 +123,8 @@ function getTotalTime(callback) {
         let sessionTime = Date.now() - data[data.length-1]['start'];
         callback(formatTime(times + sessionTime));
     })
+}
+
+function hideStatsWebsite() {
+    document.querySelector('body').classList.add('noData');
 }
