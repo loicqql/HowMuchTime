@@ -50,7 +50,7 @@ function getAverageTime(rows) {
     let times = 0;
 
     if((rows.length == 1) && rows[0]['end'] == null) {
-        return 'No data available'
+        return 'N/A'
     }
 
     rows.forEach(row => {
@@ -68,7 +68,7 @@ function getAverageTime(rows) {
     if(average) {
         return formatTime(average);
     }else {
-        return 'No data available';
+        return 'N/A';
     }
 
     

@@ -77,13 +77,12 @@ function exportData() {
 }
 
 function importData(e) {
-    console.log(e.files);
     let fileJson = document.getElementById("importInput").files[0];
 
     const fr = new FileReader();
 
     fr.addEventListener("load", e => {
-        //Try catch
+        //try
         console.log(checkJsonData(JSON.parse(fr.result)));
     });
 
@@ -92,16 +91,58 @@ function importData(e) {
 
 function checkJsonData(json) {
 
-    if(!json.hasOwnProperty(KEY)) {
-        return false
+    try {
+
+        if(!json.hasOwnProperty(KEY)) {
+            return false;
+        }
+    
+        data = json[KEY];
+
+        let valid = true;
+
+        for (let i = 1; i < data.length; i++) {
+            const el = data[i];
+            
+            let key = Object.keys(el);
+
+            key = key[0];
+            
+            let row = el[key];
+            console.log(row);
+
+            row.forEach(time => {
+
+                console.log(time);
+
+                if(time.hasOwnProperty("start") && time.hasOwnProperty("end")) {
+                    let start = time['start'];
+                    let end = time['end'];
+
+                    if(Number.isInteger(start) && Number.isInteger(end)) {
+                        if(start >= end) {
+                            console.log('cc');
+                            valid = false;
+                        }
+                    }else {
+                        if(!Number.isInteger(start)) {
+                            console.log('cc');
+                            valid = false;
+                        }
+                    }
+
+                }else {
+                    console.log('cc');
+                    valid = false;
+                }
+            });
+        }
+
+        return valid;
+
+    } catch(error) {
+        console.log(error);
+
+        return false;
     }
-
-    data = json[KEY];
-
-    data.forEach(el => {
-        let key = Object.keys(el);
-
-
-        //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/RegExp/test
-    });
 }
