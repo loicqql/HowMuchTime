@@ -61,10 +61,6 @@ function showStatsWebsite() {
     }, 1000);
 }
 
-function hideStatsWebsite() {
-
-}
-
 function getData(callback) {
     browser.storage.local.get([KEY]).then((e) => {
         if(e.hasOwnProperty(KEY)) {

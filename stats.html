@@ -4,36 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HowMuchTime</title>
-    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/styleStats.css">
+    <link rel="stylesheet" href="./src/css/root.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="./src/js/font.js"></script>
 </head>
 <body class="stats">
     <header>
-        <button>Import data</button>
-        <button id="export">Export data</button>
 
-        <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
+        <img src="./src/logo.jpg" alt="Logo HowMuchTime">
+
+        <ul>
+            <li><a href="#index"><i class="fas fa-chart-bar"></i><p>Stats</p></a></li>
+            <li><a href="#settings"><i class="fas fa-cogs"></i><p>Settings</p></a></li>
+            <li><a href="#about"><i class="fas fa-code"></i><p>About</p></a></li>
+        </ul>
+
     </header>
     <main>
-        
-        <style>
-            .vignette {
-                border: 2px solid red;
-            }
 
-            #model {
-                display: none;
-            }
-        </style>
+        <section class="index">
+
+            <button>Import data</button>
+            <button id="export">Export data</button>
+
+        <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
+
+            <h1>Faire un CTRL F</h1>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Website</th>
+                        <th>Visits</th>
+                        <th class="select">Time</th>
+                        <th>Average time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </section>
 
     </main>
-
-    <div id="model">
-        <p class="nameWebsite"></p>
-        <p class="visits"></p>
-        <p class="time"></p>
-        <p class="average"></p>
-    </div>
-    
+        
     <script src="./src/js/const.js"></script>
     <script src="./src/js/functions.js"></script>
     <script src="./src/js/stats.js"></script>

@@ -1,0 +1,10 @@
+:root {
+    --blanc : #fff;
+    --main : #597682;
+    --text1 : #DEDEDE;
+    --text2 : #8E8E8E;
+}
+
+* {
+    box-sizing: border-box;
+}

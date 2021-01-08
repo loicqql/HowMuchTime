@@ -13,26 +13,28 @@ function displayData() {
         });
         
         data.forEach(row => {
-            var node = document.getElementById('model').cloneNode(true);
-            node.id = "";
-            node.classList.add('vignette');
-            document.querySelector('main').append(node);
 
             let key = Object.keys(row);
 
             row = row[key[0]];
+            
+            var tr = document.createElement('tr');
 
-            insertDataInHtml(".nameWebsite", key);
-            insertDataInHtml(".visits", row.length);
-            insertDataInHtml(".time", formatTime(getTimeByWebsite(row)));
-            insertDataInHtml(".average", getAverageTime(row));
+            tr.appendChild(createTd(key));
+            tr.appendChild(createTd(row.length));
+            tr.appendChild(createTd(formatTime(getTimeByWebsite(row))));
+            tr.appendChild(createTd(getAverageTime(row)));
+
+            var tbody = document.querySelector('tbody');
+            tbody.appendChild(tr);
         });
     });
 }
 
-function insertDataInHtml(selector, text) {
-    let elements = document.querySelectorAll(".vignette "+selector);
-    elements[elements.length -1 ].textContent = text;
+function createTd(text) {
+    var td = document.createElement("td");
+    td.textContent = text;
+    return td;
 }
 
 function popKey(row) {
@@ -82,8 +84,16 @@ function importData(e) {
     const fr = new FileReader();
 
     fr.addEventListener("load", e => {
-        //try
-        console.log(checkJsonData(JSON.parse(fr.result)));
+        try {
+            let json = JSON.parse(fr.result);
+            if(checkJsonData(json)) {
+                updateData(json);
+            }else {
+                displayMessage('An error has occurred');
+            }
+        }catch(e) {
+            displayMessage('An error has occurred');
+        }
     });
 
     fr.readAsText(fileJson);
@@ -109,11 +119,8 @@ function checkJsonData(json) {
             key = key[0];
             
             let row = el[key];
-            console.log(row);
 
             row.forEach(time => {
-
-                console.log(time);
 
                 if(time.hasOwnProperty("start") && time.hasOwnProperty("end")) {
                     let start = time['start'];
@@ -121,18 +128,15 @@ function checkJsonData(json) {
 
                     if(Number.isInteger(start) && Number.isInteger(end)) {
                         if(start >= end) {
-                            console.log('cc');
                             valid = false;
                         }
                     }else {
                         if(!Number.isInteger(start)) {
-                            console.log('cc');
                             valid = false;
                         }
                     }
 
                 }else {
-                    console.log('cc');
                     valid = false;
                 }
             });
@@ -145,4 +149,13 @@ function checkJsonData(json) {
 
         return false;
     }
+}
+
+function updateData(json) {
+    console.log(json);
+    displayMessage('Data has been updated');
+}
+
+function displayMessage(e) {
+    console.log(e)
 }
