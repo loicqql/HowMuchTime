@@ -3,6 +3,11 @@ displayData();
 document.getElementById("export").addEventListener("click", exportData);
 document.getElementById("importInput").addEventListener("change", importData);
 
+let ths = document.querySelectorAll('th');
+ths.forEach(tr => {
+    tr.addEventListener('click', selectTable);
+});
+
 function displayData() {
     getAllData((data) => {
 
@@ -18,22 +23,23 @@ function displayData() {
 
             row = row[key[0]];
             
-            var tr = document.createElement('tr');
+            let tr = document.createElement('tr');
 
-            tr.appendChild(createTd(key));
-            tr.appendChild(createTd(row.length));
-            tr.appendChild(createTd(formatTime(getTimeByWebsite(row))));
-            tr.appendChild(createTd(getAverageTime(row)));
+            tr.appendChild(createTd(key, key));
+            tr.appendChild(createTd(row.length, row.length));
+            tr.appendChild(createTd(formatTime(getTimeByWebsite(row)), getTimeByWebsite(row)));
+            tr.appendChild(createTd(getAverageTime(row, true), getAverageTime(row, false)));
 
-            var tbody = document.querySelector('tbody');
+            let tbody = document.querySelector('tbody');
             tbody.appendChild(tr);
         });
     });
 }
 
-function createTd(text) {
+function createTd(text, dataset) {
     var td = document.createElement("td");
     td.textContent = text;
+    td.dataset.raw = dataset;
     return td;
 }
 
@@ -158,4 +164,83 @@ function updateData(json) {
 
 function displayMessage(e) {
     console.log(e)
+}
+
+
+function selectTable() {
+    if(this.classList.contains('select')) {
+
+        let i = this.querySelector('i');
+        if(i.classList.contains('fa-caret-up')) {
+            i.classList.remove('fa-caret-up');
+            i.classList.add('fa-caret-down');
+        }else {
+            i.classList.remove('fa-caret-down');
+            i.classList.add('fa-caret-up');
+        }
+
+    }else {
+        let ths = document.querySelectorAll('th');
+        ths.forEach(tr => {
+            tr.classList.remove('select');
+        });
+
+        this.classList.add('select');
+
+        let i = this.querySelector('i');
+
+        if(i.classList.contains('fa-caret-down')) {
+            i.classList.remove('fa-caret-down');
+            i.classList.add('fa-caret-up');
+        }
+    }
+
+    let i = this.querySelector('i');
+    if(i.classList.contains('fa-caret-down')) {
+        sortTable(this.dataset.column, true);
+    }else {
+        sortTable(this.dataset.column, false);
+    }
+
+    
+}
+
+function sortTable(column, ASC) {
+
+    const urlToNumber = (e) => {
+        let tabUrl = e.split('.');
+        let domain = tabUrl[tabUrl.length - 2];
+        let fristLetter = domain.charAt(0);
+        return fristLetter.charCodeAt(0) - 97;
+    }
+
+    const extractData = (e) => {
+        if(column === "1") { //sort name of websites
+            return urlToNumber(e.querySelector('td:nth-child('+column+')').dataset.raw);
+        }else {
+            return e.querySelector('td:nth-child('+column+')').dataset.raw;
+        }
+    }
+
+    let trs = document.querySelectorAll('tbody tr');
+
+    trs = Array.prototype.slice.call(trs, 0);
+
+    if(ASC) {
+        trs.sort((a, b) => {
+            return extractData(a) - extractData(b);
+        });
+    }else {
+        trs.sort((a, b) => {
+            return extractData(b) - extractData(a);
+        });
+    }
+
+    let tbody = document.querySelector('tbody');
+    tbody.innerHTML = '';
+
+    trs.forEach(tr => {
+        tbody.appendChild(tr);
+    });
+    
 }

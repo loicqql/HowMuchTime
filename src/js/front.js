@@ -48,7 +48,7 @@ function showStatsWebsite() {
     document.getElementById("sessionTime").textContent = getSessionTime(data[data.length-1]);
     setInterval(() => {document.getElementById("sessionTime").textContent = getSessionTime(data[data.length-1]);},1000);
 
-    document.getElementById("averageTimeSession").textContent = getAverageTime(data);
+    document.getElementById("averageTimeSession").textContent = getAverageTime(data, true);
 
     getTotalTime((result) => {
         document.getElementById("total").textContent = result;

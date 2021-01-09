@@ -71,6 +71,13 @@ table {
 th {
     color: var(--main);
     padding: 0.5em 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+th i {
+    visibility: hidden;
+    margin-left: 0.5em;
 }
 
 th:hover {
@@ -79,6 +86,10 @@ th:hover {
 
 .select {
     background-color: #e8e8e8;
+}
+
+.select i {
+    visibility: visible;
 }
 
 tr {

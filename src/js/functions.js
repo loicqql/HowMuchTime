@@ -44,7 +44,7 @@ function getAllData(callback) {
     });
 }
 
-function getAverageTime(rows) {
+function getAverageTime(rows, format) {
 
     let validRows = 0;
     let times = 0;
@@ -66,7 +66,12 @@ function getAverageTime(rows) {
     let average = Math.round(times/validRows);
 
     if(average) {
-        return formatTime(average);
+        if(format) {
+            return formatTime(average);
+        }else {
+            return average;
+        }
+        
     }else {
         return 'N/A';
     }
