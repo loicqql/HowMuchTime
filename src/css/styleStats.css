@@ -21,6 +21,7 @@ header {
 
 header img {
     width: 90%;
+    cursor: pointer;
 }
 
 header ul {
@@ -29,26 +30,35 @@ header ul {
     padding: 0;
 }
 
+
 header li {
     width: 100%;
     list-style: none;
+    cursor: pointer;
+}
+
+header .active {
+    border-left: 7px solid var(--main);
+}
+
+header .active a {
+    color: var(--main)
+}
+
+header li:hover a {
+    color: var(--main);
 }
 
 header a {
     width: 100%;
     text-decoration: none;
-    color: var(--main);
+    color: var(--text2);
     font-weight: 600;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0.1em 2em;
     margin: 0;
-    transition: 0.2s;
-}
-
-header a:hover {
-    background-color: #e8e8e8;
 }
 
 header i {

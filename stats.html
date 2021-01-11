@@ -15,9 +15,9 @@
         <img src="./src/logo.jpg" alt="Logo HowMuchTime">
 
         <ul>
-            <li><a href="#index"><i class="fas fa-chart-bar"></i><p>Stats</p></a></li>
-            <li><a href="#settings"><i class="fas fa-cogs"></i><p>Settings</p></a></li>
-            <li><a href="#about"><i class="fas fa-code"></i><p>About</p></a></li>
+            <li data-section="index" class="active"><a><i class="fas fa-chart-bar"></i><p>Stats</p></a></li>
+            <li data-section="settings"><a><i class="fas fa-cogs"></i><p>Settings</p></a></li>
+            <li data-section="about"><a><i class="fas fa-code"></i><p>About</p></a></li>
         </ul>
 
     </header>
@@ -28,7 +28,7 @@
             <button>Import data</button>
             <button id="export">Export data</button>
 
-        <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
+            <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
 
             <h1>Faire un CTRL F</h1>
 
@@ -44,6 +44,18 @@
                 <tbody>
                 </tbody>
             </table>
+
+        </section>
+
+        <section class="settings" style="display: none;">
+
+            <input type="text">
+
+        </section>
+
+        <section class="about" style="display: none">
+
+            <p>About</p>
 
         </section>
 

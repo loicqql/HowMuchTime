@@ -3,9 +3,18 @@ displayData();
 document.getElementById("export").addEventListener("click", exportData);
 document.getElementById("importInput").addEventListener("change", importData);
 
+let lis = document.querySelectorAll('ul li');
+lis.forEach(li => {
+    li.addEventListener('click', navigation);
+});
+
 let ths = document.querySelectorAll('th');
 ths.forEach(tr => {
     tr.addEventListener('click', selectTable);
+});
+
+document.querySelector('header img').addEventListener('click', () => {
+    document.querySelector('header li:first-of-type').click();
 });
 
 function displayData() {
@@ -202,7 +211,6 @@ function selectTable() {
         sortTable(this.dataset.column, false);
     }
 
-    
 }
 
 function sortTable(column, ASC) {
@@ -243,4 +251,22 @@ function sortTable(column, ASC) {
         tbody.appendChild(tr);
     });
     
+}
+
+function navigation() {
+
+    let lis = document.querySelectorAll("ul li");
+    for (let i = 0; i < lis.length; i++) {
+        lis[i].classList.remove('active')
+    }
+    this.classList.add('active');
+
+    let sections = document.querySelectorAll("section");
+    for (let i = 0; i < sections.length; i++) {
+        sections[i].style.display = 'none';
+    }
+
+    
+    let section = document.querySelector('.'+this.dataset.section);
+    section.style.display = 'block';
 }
