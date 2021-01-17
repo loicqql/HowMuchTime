@@ -1,2 +1,4 @@
 # dev
 /dev
+/node_modules
+/dist/

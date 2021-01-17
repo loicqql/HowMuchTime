@@ -1,3 +1,5 @@
+//functions use in front.js, stats.js
+
 function formatTime(time) {
     let result;
 
@@ -84,4 +86,22 @@ function getWebsites(callback) {
     getAllData((rows) => {
         callback(rows.length - 1);
     })
+}
+
+function setBlockedWebsite(domain) {
+    getAllData((data)=>{
+        data[0]['blockedWebsite'].push(domain);
+
+        browser.storage.local.set({
+            [KEY] : data
+        }).then(() => {
+            updateBlockedWebsites();
+        });
+    });
+}
+
+function updateBlockedWebsites() {
+    getAllData((e)=>{
+        console.log(e[0]['blockedWebsite']);
+    });
 }

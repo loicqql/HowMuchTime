@@ -1,3 +1,5 @@
+//display data in popup
+
 let data;
 
 document.getElementById("stats").setAttribute('href', browser.runtime.getURL("./stats.html"));

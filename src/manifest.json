@@ -7,7 +7,7 @@
   "author": "Loic Quinquenel",
 
   "background": {
-    "scripts": ["src/js/main.js", "src/js/const.js"],
+    "scripts": ["/js/main.js", "/js/const.js"],
     "persistent": true
   },
 

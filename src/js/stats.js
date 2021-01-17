@@ -1,7 +1,10 @@
+//display Data in stats page
 
 displayData();
 document.getElementById("export").addEventListener("click", exportData);
 document.getElementById("importInput").addEventListener("change", importData);
+
+document.getElementById("searchBar").addEventListener("input", searchBar);
 
 let lis = document.querySelectorAll('ul li');
 lis.forEach(li => {
@@ -16,6 +19,8 @@ ths.forEach(tr => {
 document.querySelector('header img').addEventListener('click', () => {
     document.querySelector('header li:first-of-type').click();
 });
+
+setBlockedWebsite('github.com');
 
 function displayData() {
     getAllData((data) => {
@@ -33,6 +38,7 @@ function displayData() {
             row = row[key[0]];
             
             let tr = document.createElement('tr');
+            tr.dataset.domain = key;
 
             tr.appendChild(createTd(key, key));
             tr.appendChild(createTd(row.length, row.length));
@@ -269,4 +275,20 @@ function navigation() {
     
     let section = document.querySelector('.'+this.dataset.section);
     section.style.display = 'block';
+}
+
+function searchBar() {
+    let input = this.value;
+
+    let trs = document.querySelectorAll('tbody tr');
+    trs.forEach(tr => {
+        tr.style.display = 'table-row';
+
+        if(input != "") {
+                if(!(tr.dataset.domain.toLowerCase().includes(input.toLowerCase()))) {
+                tr.style.display = "none";
+            }
+        }
+        
+    });    
 }

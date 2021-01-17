@@ -1,3 +1,5 @@
+//getTabData - managerData
+
 let currentDomain = null;
 
 browser.tabs.onUpdated.addListener(getActiveTab);
@@ -9,7 +11,7 @@ function getActiveTab() {
     querying.then(function(tabs) {
         tabs.forEach(tab => {
             if(tab.url.startsWith('https://') || tab.url.startsWith('http://')) {
-                let domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];;   
+                let domain = tab.url.replace('http://','').replace('https://','').split(/[/?#]/)[0];;
                 if(domain != currentDomain) {
                     storeTab(domain);
                 }
@@ -65,7 +67,6 @@ function storageManager(domain, isStart, callback) {
 
     browser.storage.local.get([KEY]).then((e) => {
         if(!e.hasOwnProperty(KEY)) {
-            console.log('c');
             browser.storage.local.set({
                 [KEY] : defaultStorage
             }).then(() => {
@@ -81,48 +82,61 @@ function storageManager(domain, isStart, callback) {
             data = e[KEY];
             newEntry = true;
 
-            data.forEach(el => {
-                var key = Object.keys(el);
-                if(key[0] == domain) {
-                    //domain found
-                    newEntry = false;
+            let blockedWebsite = false;
+            data[0]['blockedWebsite'].forEach((e) => {
+                if(e == domain) {
+                    console.log('Blocked website');
+                    blockedWebsite = true;
+                }
+            })
 
-                    if(isStart) {
-                        
-                        let push = {
-                            "start" : Date.now(), "end" : null
-                        }
-        
-                        el[key[0]].push(push);
+            if(!blockedWebsite) {
 
-                    }else {
-                        tabDomain = el[key[0]];
-                        lastRow = tabDomain.pop();
-                        
-                        let push = {
-                            "start" : lastRow["start"], "end" : Date.now()
-                        }
+                data.forEach(el => {
+                    var key = Object.keys(el);
+                    if(key[0] == domain) {
+                        //domain found
+                        newEntry = false;
     
-                        tabDomain.push(push);
+                        if(isStart) {
+                            
+                            let push = {
+                                "start" : Date.now(), "end" : null
+                            }
+            
+                            el[key[0]].push(push);
+    
+                        }else {
+                            tabDomain = el[key[0]];
+                            lastRow = tabDomain.pop();
+                            
+                            let push = {
+                                "start" : lastRow["start"], "end" : Date.now()
+                            }
+        
+                            tabDomain.push(push);
+                        }
                     }
+                });
+    
+                if(newEntry) {
+                    //domain not found -> add new entry
+    
+                    let push = {
+                        [domain] : [
+                            {"start" : Date.now(), "end" : null}
+                        ]
+                    }
+    
+                    data.push(push);
                 }
-            });
-
-            if(newEntry) {
-                //domain not found -> add new entry
-
-                let push = {
-                    [domain] : [
-                        {"start" : Date.now(), "end" : null}
-                    ]
-                }
-
-                data.push(push);
+    
+                browser.storage.local.set({
+                    [KEY] : data
+                });
             }
 
-            browser.storage.local.set({
-                [KEY] : data
-            });
+            
 
             //DEV ONLY
 

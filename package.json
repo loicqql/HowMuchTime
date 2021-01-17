@@ -1,0 +1,39 @@
+{
+  "name": "howmuchtime",
+  "version": "1.0.0",
+  "description": "How much time do you spend on internet ?",
+  "main": "main.js",
+  "scripts": {
+    "gulp:dev": "gulp",
+    "gulp:build": "gulp build",
+    "gulp:clear": "gulp clear"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loicqql/HowMuchTime.git"
+  },
+  "keywords": [
+    "web",
+    "extension",
+    "internet",
+    "stats"
+  ],
+  "author": "Loic Quinquenel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loicqql/HowMuchTime/issues"
+  },
+  "homepage": "https://github.com/loicqql/HowMuchTime#readme",
+  "devDependencies": {
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.1.0",
+    "node-sass": "^5.0.0"
+  }
+}

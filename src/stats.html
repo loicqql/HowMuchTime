@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HowMuchTime</title>
-    <link rel="stylesheet" href="./src/css/styleStats.css">
-    <link rel="stylesheet" href="./src/css/root.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="./src/js/font.js"></script>
+    <script src="./js/font.js"></script>
 </head>
 <body class="stats">
     <header>
 
-        <img src="./src/logo.jpg" alt="Logo HowMuchTime">
+        <img src="./img/logo.jpg" alt="Logo HowMuchTime">
 
         <ul>
             <li data-section="index" class="active"><a><i class="fas fa-chart-bar"></i><p>Stats</p></a></li>
@@ -25,12 +24,11 @@
 
         <section class="index">
 
-            <button>Import data</button>
             <button id="export">Export data</button>
 
             <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
 
-            <h1>Faire un CTRL F</h1>
+            <input type="text" id="searchBar" name="search" id="">
 
             <table>
                 <thead>
@@ -57,31 +55,19 @@
 
             <p>About</p>
 
+            <h2>Make a suggestion</h2>
+
+            <form action="https://getform.io/f/dc42a9d4-7895-42ff-b96e-8f12c76cdebc" method="POST">
+                <textarea placeholder="Write your message" name="message" cols="30" rows="10"></textarea>
+                <input type="submit" value="Send">
+            </form>
+
         </section>
 
     </main>
         
-    <script src="./src/js/const.js"></script>
-    <script src="./src/js/functions.js"></script>
-    <script src="./src/js/stats.js"></script>
+    <script src="./js/const.js"></script>
+    <script src="./js/functions.js"></script>
+    <script src="./js/stats.js"></script>
 </body>
 </html>
-
-
-
-<!-- 
-General
--
-Temps total
-Nb de sites
-
-Import / export avec des (?)
-
-
-Website
--
-Le nom du site
-nb de visites
-Temps passé
-Temps moyen
--->
