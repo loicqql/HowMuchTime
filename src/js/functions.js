@@ -87,21 +87,3 @@ function getWebsites(callback) {
         callback(rows.length - 1);
     })
 }
-
-function setBlockedWebsite(domain) {
-    getAllData((data)=>{
-        data[0]['blockedWebsite'].push(domain);
-
-        browser.storage.local.set({
-            [KEY] : data
-        }).then(() => {
-            updateBlockedWebsites();
-        });
-    });
-}
-
-function updateBlockedWebsites() {
-    getAllData((e)=>{
-        console.log(e[0]['blockedWebsite']);
-    });
-}

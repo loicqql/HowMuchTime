@@ -121,36 +121,36 @@
         display: none;
     }
     
-    .noData {
+    &.noData {
         height: 240px;
-    }
-    
-    .noData .website {
-        height: 30%;
-    }
-    
-    .noData .globals {
-        height: 70%;
-    }
-    
-    .noData .website h1 {
-        display : none;
-    }
-    
-    .noData .website h2 {
-        display: block;
-    }
-    
-    .noData .website div {
-        display : none;
-    }
-    
-    .noData .globals>div>div:first-of-type {
-        display: none;
-    }
-    
-    .noData .row {
-        justify-content: center;
+
+        .website {
+            height: 30%;
+        }
+
+        .globals {
+            height: 70%;
+        }
+
+        .website h1 {
+            display : none;
+        }
+
+        .website h2 {
+            display: block;
+        }
+
+        .website div {
+            display : none;
+        }
+
+        .globals>div>div:first-of-type {
+            display: none;
+        }
+
+        .row {
+            justify-content: center;
+        }
     }
 }
 

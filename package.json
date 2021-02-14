@@ -4,6 +4,7 @@
   "description": "How much time do you spend on internet ?",
   "main": "main.js",
   "scripts": {
+    "gulp": "gulp",
     "gulp:dev": "gulp",
     "gulp:build": "gulp build",
     "gulp:clear": "gulp clear"

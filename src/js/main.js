@@ -17,7 +17,7 @@ function getActiveTab() {
                 }
             }else {
                 //stop tracking on currentDomain
-                console.log("Stop :" + currentDomain);
+                console.log("Stop: " + currentDomain);
                 if(currentDomain != null) {
                     storageManager(currentDomain, false, () => {});
                 }
@@ -34,7 +34,7 @@ function getActiveTab() {
 function storeTab(domain) {
 
     //stop tracking on currentDomain
-    console.log("Stop :" + currentDomain);
+    console.log("Stop: " + currentDomain);
     if(currentDomain != null) {
         storageManager(currentDomain, false, () => {
             //Wait for end of storageManager
@@ -42,7 +42,7 @@ function storeTab(domain) {
             currentDomain = domain;
 
             //add tracking on currentDomain
-            console.log("Start :" + currentDomain);
+            console.log("Start: " + currentDomain);
             if(currentDomain != null) {
                 storageManager(currentDomain, true, () => {});
             }
@@ -53,7 +53,7 @@ function storeTab(domain) {
         currentDomain = domain;
 
         //add tracking on currentDomain
-        console.log("Start :" + currentDomain);
+        console.log("Start: " + currentDomain);
         if(currentDomain != null) {
             storageManager(currentDomain, true, () => {});
         }
@@ -82,11 +82,26 @@ function storageManager(domain, isStart, callback) {
             data = e[KEY];
             newEntry = true;
 
+            
+
             let blockedWebsite = false;
-            data[0]['blockedWebsite'].forEach((e) => {
-                if(e == domain) {
-                    console.log('Blocked website');
-                    blockedWebsite = true;
+            data[0]['blockedWebsites'].forEach((e) => {
+
+                const getDomainName = (e) => {let frags = domain.split('.'); return frags[frags.length-2]+"."+frags[frags.length-1];}
+                
+                if(getDomainName(e.domain) == getDomainName(domain)) {
+
+                    if(e.subdomains) {
+                        if(domain.includes(e.domain)) {
+                            console.log('Blocked website');
+                            blockedWebsite = true;
+                        }
+                    }else {
+                        if(domain == e.domain) {
+                            console.log('Blocked website');
+                            blockedWebsite = true;
+                        }
+                    }
                 }
             })
 
@@ -136,19 +151,12 @@ function storageManager(domain, isStart, callback) {
                 });
             }
 
-            
-
-            //DEV ONLY
-
             browser.storage.local.get([KEY]).then((e) => {
                 console.log(e);
             });
 
-            //
-
             callback();
 
         });
-        
     }
 }

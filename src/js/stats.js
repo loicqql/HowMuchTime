@@ -1,17 +1,21 @@
 //display Data in stats page
 
 displayData();
+updateBlockedWebsites();
+
 document.getElementById("export").addEventListener("click", exportData);
 document.getElementById("importInput").addEventListener("change", importData);
 
 document.getElementById("searchBar").addEventListener("input", searchBar);
+
+document.getElementById('formWebsitesBlocked').addEventListener('submit', formWebsiteBlocked)
 
 let lis = document.querySelectorAll('ul li');
 lis.forEach(li => {
     li.addEventListener('click', navigation);
 });
 
-let ths = document.querySelectorAll('th');
+let ths = document.querySelectorAll('.index th');
 ths.forEach(tr => {
     tr.addEventListener('click', selectTable);
 });
@@ -19,8 +23,6 @@ ths.forEach(tr => {
 document.querySelector('header img').addEventListener('click', () => {
     document.querySelector('header li:first-of-type').click();
 });
-
-setBlockedWebsite('github.com');
 
 function displayData() {
     getAllData((data) => {
@@ -45,7 +47,7 @@ function displayData() {
             tr.appendChild(createTd(formatTime(getTimeByWebsite(row)), getTimeByWebsite(row)));
             tr.appendChild(createTd(getAverageTime(row, true), getAverageTime(row, false)));
 
-            let tbody = document.querySelector('tbody');
+            let tbody = document.querySelector('.index tbody');
             tbody.appendChild(tr);
         });
     });
@@ -99,7 +101,7 @@ function exportData() {
     });
 }
 
-function importData(e) {
+function importData() {
     let fileJson = document.getElementById("importInput").files[0];
 
     const fr = new FileReader();
@@ -195,7 +197,7 @@ function selectTable() {
         }
 
     }else {
-        let ths = document.querySelectorAll('th');
+        let ths = document.querySelectorAll('.index th');
         ths.forEach(tr => {
             tr.classList.remove('select');
         });
@@ -236,7 +238,7 @@ function sortTable(column, ASC) {
         }
     }
 
-    let trs = document.querySelectorAll('tbody tr');
+    let trs = document.querySelectorAll('.index tbody tr');
 
     trs = Array.prototype.slice.call(trs, 0);
 
@@ -250,7 +252,7 @@ function sortTable(column, ASC) {
         });
     }
 
-    let tbody = document.querySelector('tbody');
+    let tbody = document.querySelector('.index tbody');
     tbody.innerHTML = '';
 
     trs.forEach(tr => {
@@ -291,4 +293,80 @@ function searchBar() {
         }
         
     });    
+}
+
+function setBlockedWebsite(domain, subdomains) {
+    getAllData((data)=>{
+        data[0]['blockedWebsites'].push({
+            domain: domain,
+            subdomains: subdomains
+        });
+
+        browser.storage.local.set({
+            [KEY] : data
+        }).then(() => {
+            updateBlockedWebsites();
+        });
+    });
+}
+
+function updateBlockedWebsites() {
+    getAllData((e)=>{
+        let tbody = document.querySelector('.settings tbody');
+        tbody.innerHTML = '';
+
+        if(e[0]['blockedWebsites'].length == 0) {
+            let td = document.createElement("td");
+            td.textContent = 'No blocked websites';
+            tbody.appendChild(td);
+        }else {
+            e[0]['blockedWebsites'].forEach(el => {
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                let p = document.createElement("p");
+                
+                if(el.subdomains) {
+                    p.textContent = el.domain + ' with subdomains';
+                }else {
+                    p.textContent = el.domain;
+                }
+                
+                let i = document.createElement("i");
+                i.classList.add('fas', 'fa-trash-alt');
+                i.dataset.raw = el.domain;
+
+                i.addEventListener('click', (e) => {
+                    deleteBlockedWebsite(e.target.dataset.raw);
+                });
+
+                p.appendChild(i);
+                td.appendChild(p);
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            });
+        }
+    });
+}
+
+function deleteBlockedWebsite(domain) {
+    getAllData((data)=>{
+        data[0]['blockedWebsites'] = data[0]['blockedWebsites'].filter(item => item.domain !== domain);
+
+        browser.storage.local.set({
+            [KEY] : data
+        }).then(() => {
+            updateBlockedWebsites();
+        });
+    });
+}
+
+function formWebsiteBlocked(e) {
+    e.preventDefault();
+    let domain = document.getElementById('inputWebsitesBlocked').value;
+
+    domain = domain.toLowerCase();
+    //verif
+    //possibilité de bloquer des sous domaines sur une un domaine qui contient déja un sous domaine ?
+
+    setBlockedWebsite(domain, document.getElementById('subdomains').checked);
 }

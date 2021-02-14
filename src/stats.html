@@ -24,11 +24,7 @@
 
         <section class="index">
 
-            <button id="export">Export data</button>
-
-            <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
-
-            <input type="text" id="searchBar" name="search" id="">
+            <input type="text" id="searchBar" name="search" id="" placeholder="Search in table">
 
             <table>
                 <thead>
@@ -47,7 +43,28 @@
 
         <section class="settings" style="display: none;">
 
-            <input type="text">
+            <button id="export">Export data</button>
+
+            <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
+
+            <form id="formWebsitesBlocked">
+                <input type="text" id="inputWebsitesBlocked" placeholder="example.com" required>
+                <input type="checkbox" name="subdomains" id="subdomains" checked><label for="subdomains">Including subdomains</label>
+                <input type="checkbox" name="deleteData" id="deleteData"><label for="deleteData">Delete Data</label>
+                <input type="submit" value="Submit">
+            </form>
+            
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Websites blocked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
 
         </section>
 
