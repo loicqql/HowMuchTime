@@ -25,6 +25,9 @@ document.querySelector('header img').addEventListener('click', () => {
 });
 
 function displayData() {
+    let tbody = document.querySelector('.index tbody');
+    tbody.innerHTML = "";
+
     getAllData((data) => {
 
         data.shift();
@@ -46,8 +49,6 @@ function displayData() {
             tr.appendChild(createTd(row.length, row.length));
             tr.appendChild(createTd(formatTime(getTimeByWebsite(row)), getTimeByWebsite(row)));
             tr.appendChild(createTd(getAverageTime(row, true), getAverageTime(row, false)));
-
-            let tbody = document.querySelector('.index tbody');
             tbody.appendChild(tr);
         });
     });
@@ -273,10 +274,18 @@ function navigation() {
     for (let i = 0; i < sections.length; i++) {
         sections[i].style.display = 'none';
     }
-
     
     let section = document.querySelector('.'+this.dataset.section);
     section.style.display = 'block';
+
+    let func = new functions()
+    func[this.dataset.section]();
+}
+
+function functions(){
+    this.index = function(){displayData()};
+    this.settings = function(){updateBlockedWebsites()};
+    this.about = function(){};
 }
 
 function searchBar() {
@@ -295,17 +304,29 @@ function searchBar() {
     });    
 }
 
-function setBlockedWebsite(domain, subdomains) {
+function setBlockedWebsite(domain, subdomains, callback) {
     getAllData((data)=>{
-        data[0]['blockedWebsites'].push({
-            domain: domain,
-            subdomains: subdomains
+
+        let updated = false;
+        data[0]['blockedWebsites'].forEach(el => {
+            if(el.domain === domain) {
+                updated = true;
+                el.subdomains = subdomains;
+            }
         });
 
+        if(!updated) {
+            data[0]['blockedWebsites'].push({
+                domain: domain,
+                subdomains: subdomains
+            });
+        }
+        
         browser.storage.local.set({
             [KEY] : data
         }).then(() => {
             updateBlockedWebsites();
+            callback();
         });
     });
 }
@@ -368,5 +389,36 @@ function formWebsiteBlocked(e) {
     //verif
     //possibilité de bloquer des sous domaines sur une un domaine qui contient déja un sous domaine ?
 
-    setBlockedWebsite(domain, document.getElementById('subdomains').checked);
+    setBlockedWebsite(domain, document.getElementById('subdomains').checked, () => {
+        if(document.getElementById('deleteData').checked) {
+            deleteDataByWebsite(domain);
+        }
+    });   
+}
+
+function deleteDataByWebsite(website) {
+    let deleteSubdomains = document.getElementById('subdomains').checked;
+
+    getAllData((data) => {
+
+        const getKey = (row) => {
+            let key = Object.keys(row);
+            if(key.length > 1) {
+                key[0] = "How: "+Math.random()*10 //Never mind
+            }
+            return key[0];
+        }
+
+        if(deleteSubdomains) {
+            data = data.filter(item => !getKey(item).includes(website));
+        }else {
+            data = data.filter(item => getKey(item) != website);
+        }
+
+        browser.storage.local.set({
+            [KEY]: data
+        }).then(() => {
+            displayData();
+        });
+    });
 }
