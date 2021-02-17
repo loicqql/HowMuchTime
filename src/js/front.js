@@ -11,6 +11,7 @@ getWebsites((result) => {
 });
 
 getActiveTab();
+getDark();
 
 function getActiveTab() {
     var querying = browser.tabs.query({active: true, currentWindow: true});
@@ -42,15 +43,15 @@ function front() {
 
 function showStatsWebsite() {
 
-    document.querySelector('body').classList.remove('noData');
+    document.querySelector('body').classList.remove('no-data');
 
-    document.getElementById("currentDomain").textContent = currentDomain;
+    document.getElementById("current-domain").textContent = currentDomain;
     document.getElementById("visits").textContent = data.length;
 
-    document.getElementById("sessionTime").textContent = getSessionTime(data[data.length-1]);
-    setInterval(() => {document.getElementById("sessionTime").textContent = getSessionTime(data[data.length-1]);},1000);
+    document.getElementById("session-time").textContent = getSessionTime(data[data.length-1]);
+    setInterval(() => {document.getElementById("session-time").textContent = getSessionTime(data[data.length-1]);},1000);
 
-    document.getElementById("averageTimeSession").textContent = getAverageTime(data, true);
+    document.getElementById("average-time-session").textContent = getAverageTime(data, true);
 
     getTotalTime((result) => {
         document.getElementById("total").textContent = result;
@@ -125,4 +126,12 @@ function getTotalTime(callback) {
 
 function hideStatsWebsite() {
     document.querySelector('body').classList.add('noData');
+}
+
+function getDark() {
+    getAllData((data)=>{
+        if(data[0]['is_dark']){
+            document.querySelector('body').classList.add('dark');
+        }
+    });
 }

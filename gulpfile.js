@@ -23,8 +23,9 @@ const paths = {
       dest: './dist/js/',
     },
     scss: {
-      src: './src/css/**/*.scss',
+      src: './src/css/style.scss',
       dest: './dist/css/style.scss',
+      watch: './src/css/*.scss',
     },
     html: {
       src: './src/**/*.html',
@@ -45,7 +46,7 @@ const paths = {
 function scssDev() {
     return (
       gulp
-        .src(paths.scss.src, { since: gulp.lastRun(scssDev) })
+        .src(paths.scss.src)
         .pipe(plumber())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
@@ -57,7 +58,7 @@ function scssDev() {
 
 
 function watchDev() {
-    gulp.watch(paths.scss.src, scssDev);
+    gulp.watch(paths.scss.watch, scssDev);
 }
 
 //Build

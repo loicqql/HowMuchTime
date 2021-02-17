@@ -4,6 +4,7 @@ const TOLERANCE = 1000; //ms
 const defaultStorage = [
     {
         author : "Loïc Quinquenel",
-        blockedWebsites: []
+        blockedWebsites: [],
+        is_dark: false
     }
 ];

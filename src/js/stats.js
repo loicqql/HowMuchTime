@@ -8,7 +8,9 @@ document.getElementById("importInput").addEventListener("change", importData);
 
 document.getElementById("searchBar").addEventListener("input", searchBar);
 
-document.getElementById('formWebsitesBlocked').addEventListener('submit', formWebsiteBlocked)
+document.getElementById('formWebsitesBlocked').addEventListener('submit', formWebsiteBlocked);
+
+document.querySelector(".checkbox_dark").addEventListener('change', updateDark);
 
 let lis = document.querySelectorAll('ul li');
 lis.forEach(li => {
@@ -420,5 +422,14 @@ function deleteDataByWebsite(website) {
         }).then(() => {
             displayData();
         });
+    });
+}
+
+function updateDark() {
+    getAllData((data)=>{
+        data[0]['is_dark'] = document.querySelector(".checkbox_dark").checked;
+        browser.storage.local.set({
+            [KEY] : data
+        })
     });
 }
