@@ -2,6 +2,7 @@
 
 displayData();
 updateBlockedWebsites();
+updateCheckboxDark();
 
 document.getElementById("export").addEventListener("click", exportData);
 document.getElementById("importInput").addEventListener("change", importData);
@@ -24,6 +25,14 @@ ths.forEach(tr => {
 
 document.querySelector('header img').addEventListener('click', () => {
     document.querySelector('header li:first-of-type').click();
+});
+
+document.addEventListener('visibilitychange', function(e) {
+    if (document.visibilityState == "visible") {
+        displayData();
+        updateBlockedWebsites();
+        updateCheckboxDark();
+    }
 });
 
 function displayData() {
@@ -431,5 +440,11 @@ function updateDark() {
         browser.storage.local.set({
             [KEY] : data
         })
+    });
+}
+
+function updateCheckboxDark() {
+    getAllData((data)=>{
+        document.querySelector(".checkbox_dark").checked = data[0]['is_dark'];
     });
 }
