@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,61 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="./js/font.js"></script>
 </head>
-<body class="stats">
-    <header>
 
-        <img src="./img/logo.jpg" alt="Logo HowMuchTime">
+<body class="stats">
+    <div class="message">
+        <h3>Message</h3>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+    <header>
+        <div class="title">
+            <h1>How Much Time</h1>
+            <p>N/A</p>
+            <svg class="shape triangle" xmlns="http://www.w3.org/2000/svg" width="111.567" height="106.323"
+                viewBox="0 0 111.567 106.323">
+                <g transform="matrix(0.891, 0.454, -0.454, 0.891, 34.049, 0)" fill="none" opacity="0.05">
+                    <path
+                        d="M38.31,8.949a6,6,0,0,1,10.38,0L81.774,65.99A6,6,0,0,1,76.584,75H10.416a6,6,0,0,1-5.19-9.01Z"
+                        stroke="none" />
+                    <path
+                        d="M 43.49999618530273 25.91096115112305 L 22.56834411621094 62.00000762939453 L 64.431640625 62.00000762939453 L 43.49999618530273 25.91096115112305 M 43.49999618530273 5.958908081054688 C 45.51708602905273 5.958908081054688 47.53417587280273 6.955474853515625 48.690185546875 8.948600769042969 L 81.77401733398438 65.98970031738281 C 84.093994140625 69.98967742919922 81.20792388916016 75.00000762939453 76.58383178710938 75.00000762939453 L 10.41616058349609 75.00000762939453 C 5.792068481445313 75.00000762939453 2.905975341796875 69.98967742919922 5.225975036621094 65.98970031738281 L 38.30980682373047 8.948600769042969 C 39.46581649780273 6.955474853515625 41.48290634155273 5.958908081054688 43.49999618530273 5.958908081054688 Z"
+                        stroke="none" fill="#000" />
+                </g>
+            </svg>
+            <svg class="shape circle" xmlns="http://www.w3.org/2000/svg" width="83" height="83" viewBox="0 0 83 83">
+                <g fill="none" stroke="#000" stroke-width="13" opacity="0.05">
+                    <circle cx="41.5" cy="41.5" r="41.5" stroke="none" />
+                    <circle cx="41.5" cy="41.5" r="35" fill="none" />
+                </g>
+            </svg>
+            <svg class="shape square" xmlns="http://www.w3.org/2000/svg" width="101.086" height="101.086"
+                viewBox="0 0 101.086 101.086">
+                <g transform="translate(37) rotate(30)" fill="none" stroke="#000" stroke-width="13" opacity="0.05">
+                    <rect width="74" height="74" rx="8" stroke="none" />
+                    <rect x="6.5" y="6.5" width="61" height="61" rx="1.5" fill="none" />
+                </g>
+            </svg>
+        </div>
 
         <ul>
-            <li data-section="index" class="active"><a><i class="fas fa-chart-bar"></i><p>Stats</p></a></li>
-            <li data-section="settings"><a><i class="fas fa-cogs"></i><p>Settings</p></a></li>
-            <li data-section="about"><a><i class="fas fa-code"></i><p>About</p></a></li>
+            <li data-section="index" class="active">
+                <a>
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Stats</p>
+                </a>
+            </li>
+            <li data-section="settings">
+                <a>
+                    <i class="fas fa-cogs"></i>
+                    <p>Settings</p>
+                </a>
+            </li>
+            <li data-section="about">
+                <a>
+                    <i class="fas fa-code"></i>
+                    <p>About</p>
+                </a>
+            </li>
         </ul>
 
     </header>
@@ -24,9 +71,13 @@
 
         <section class="index">
 
-            <input type="text" id="searchBar" name="search" id="" placeholder="Search in table">
-
-            <table>
+            <h2>Settings</h2>
+            <hr>
+            <div class="input__text">
+                <label for="search">Search</label>
+                <input type="text" id="searchBar" name="search" id="" placeholder="example.com">
+            </div>
+            <table class="table">
                 <thead>
                     <tr>
                         <th data-column="1">Website<i class="fas fa-caret-up"></i></th>
@@ -43,55 +94,68 @@
 
         <section class="settings" style="display: none;">
 
-            <button id="export">Export data</button>
+            <h2>Stats</h2>
+            <hr>
 
-            <input id="importInput" type="file" id="file" name="file" accept="application/JSON">
-
-            <form id="formWebsitesBlocked">
-                <input type="text" id="inputWebsitesBlocked" placeholder="example.com" required>
-                <input type="checkbox" name="subdomains" id="subdomains" checked><label for="subdomains">Including subdomains</label>
-                <input type="checkbox" name="deleteData" id="deleteData"><label for="deleteData">Delete Data</label>
-                <input type="submit" value="Submit">
-            </form>
-
-            <div>
-                <input type="checkbox" class="checkbox_dark" name="checkbox_dark" id="checkbox_dark">
-                <label for="checkbox_dark">Dark mode</label>
+            <div class="row">
+                <div class="input__switch">
+                    <input type="checkbox" class="checkbox_dark" name="checkbox_dark" id="checkbox_dark">
+                    <label for="checkbox_dark">Dark mode</label>
+                </div>
             </div>
-            
+            <hr>
+            <div class="row">
+                <h3>Import / Export data + config</h3>
+                <button id="export" class="input__submit">Export data</button>
+                <input id="importInput" class="input__submit" type="file" id="file" name="file"
+                    accept="application/JSON">
+            </div>
+            <hr>
+            <div class="row">
+                <h3>Block websites</h3>
+                <form id="formWebsitesBlocked">
+                    <div class="input__text">
+                        <label for="inputWebsitesBlocked">Domain</label>
+                        <input type="text" id="inputWebsitesBlocked" required placeholder="example.com">
+                    </div>
+                    <div class="input__checkbox">
+                        <input type="checkbox" name="subdomains" id="subdomains" checked>
+                        <label for="subdomains">Include subdomains</label>
+                    </div>
+                    <div class="input__checkbox">
+                        <input type="checkbox" name="deleteData" id="deleteData">
+                        <label for="deleteData">Delete data</label>
+                    </div>
+                    <input type="submit" class="input__submit" value="Submit">
+                </form>
+            </div>
 
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Websites blocked</th>
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
-
-            <p>Dark Mode</p>
-            <p>Enabled</p>
-            <p>Automatic</p>
-
         </section>
 
         <section class="about" style="display: none">
-
-            <p>About</p>
-
-            <h2>Make a suggestion</h2>
-
-            <form action="https://getform.io/f/dc42a9d4-7895-42ff-b96e-8f12c76cdebc" method="POST">
-                <textarea placeholder="Write your message" name="message" cols="30" rows="10"></textarea>
-                <input type="submit" value="Send">
-            </form>
-
+            <h2>About</h2>
+            <hr>
+            <div class="row">
+                <h3>Make a suggestion</h3>
+                <form class="about__form" action="https://getform.io/f/dc42a9d4-7895-42ff-b96e-8f12c76cdebc"
+                    method="POST">
+                    <textarea placeholder="Write your message" name="message" cols="30" rows="10" required></textarea>
+                    <input class="input__submit" type="submit" value="Send">
+                </form>
+            </div>
         </section>
 
     </main>
-        
     <script src="./js/const.js"></script>
     <script src="./js/functions.js"></script>
     <script src="./js/stats.js"></script>
