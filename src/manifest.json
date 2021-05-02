@@ -7,7 +7,7 @@
   "author": "Loic Quinquenel",
 
   "background": {
-    "scripts": ["/js/main.js", "/js/const.js"],
+    "scripts": ["/js/browser-polyfill.min.js","/js/main.js", "/js/const.js"],
     "persistent": true
   },
 

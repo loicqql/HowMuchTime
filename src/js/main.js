@@ -2,7 +2,7 @@
 
 let currentDomain = null;
 
-browser.tabs.onUpdated.addListener(getActiveTab);
+browser.tabs.onActivated.addListener(getActiveTab);
 browser.windows.onRemoved.addListener(() => {storeTab(null)});
 getActiveTab();
 
