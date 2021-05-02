@@ -19,5 +19,9 @@
   "permissions": [
     "storage",
     "tabs"
-  ]
+  ],
+
+  "icons": {
+    "1000": "./img/logo.png"
+  }
 }
